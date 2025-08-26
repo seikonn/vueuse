@@ -33,7 +33,10 @@
     "build": "pnpm run clean && rollup --config rollup.config.ts --configPlugin typescript",
     "clean": "rimraf dist",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
   },
   "peerDependencies": {
     "vue": "^3.2.0"
@@ -50,6 +53,8 @@
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-esbuild": "^6.2.1",
     "tslib": "^2.8.1",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitepress": "2.0.0-alpha.12",
+    "vitepress-demo-plugin": "^1.4.7"
   }
 }
