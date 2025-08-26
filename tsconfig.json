@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM"],
     "baseUrl": ".",
     "rootDir": ".",
-    "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "lib": ["ESNext", "DOM"],
     "paths": {
       "@/*": ["src/*"]
     },
     "strict": true,
     "noUnusedLocals": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*",

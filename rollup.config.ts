@@ -1,72 +1,75 @@
-import typescript from "@rollup/plugin-typescript";
-import dts from "rollup-plugin-dts";
-import alias from "@rollup/plugin-alias";
-import { defineConfig } from "rollup";
-import { fileURLToPath, URL } from "node:url";
+import type { Options as ESBuildOptions } from 'rollup-plugin-esbuild'
+import { fileURLToPath, URL } from 'node:url'
+import alias from '@rollup/plugin-alias'
+import typescript from '@rollup/plugin-typescript'
+import { defineConfig } from 'rollup'
+import dts from 'rollup-plugin-dts'
+import esbuild from 'rollup-plugin-esbuild'
 
-// 等价于 __dirname
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
+function aliasPlugin() {
+  return alias({
+    entries: [
+      {
+        find: '@',
+        replacement: fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    ],
+  })
+}
 
-const aliasPlugin = alias({
-  entries: [
-    {
-      find: "@",
-      replacement: fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  ],
-});
-/**
- * @type {import('rollup').RollupOptions}
- */
+function esbuildMinifier(options: ESBuildOptions) {
+  const { renderChunk } = esbuild(options)
+
+  return {
+    name: 'esbuild-minifier',
+    renderChunk,
+  }
+}
+
 export default defineConfig([
   {
-    plugins: [aliasPlugin, typescript({ tsconfig: "./tsconfig.json" })],
-    input: "src/index.ts",
-    external: ["vue"],
+    plugins: [aliasPlugin(), typescript({ tsconfig: './tsconfig.json' })],
+    input: 'src/index.ts',
+    external: ['vue'],
     output: [
       {
-        format: "iife",
-        dir: "./dist",
-        entryFileNames: "[name].iife.js",
-        name: "seikonnUse",
+        file: './dist/index.iife.js',
+        format: 'iife',
+        name: 'easyuse',
         globals: {
-          vue: "Vue",
+          vue: 'Vue',
         },
+        plugins: [],
       },
       {
-        format: "es",
-        dir: "./dist/es",
-        entryFileNames: "[name].js",
-        preserveModules: true,
+        file: './dist/index.iife.min.js',
+        format: 'iife',
+        name: 'easyuse',
+        globals: {
+          vue: 'Vue',
+        },
+        plugins: [
+          esbuildMinifier({
+            minify: true,
+          }),
+        ],
       },
       {
-        format: "cjs",
-        dir: "./dist/lib",
-        entryFileNames: "[name].js",
-        preserveModules: true,
+        format: 'es',
+        dir: './dist',
+        entryFileNames: 'index.mjs',
       },
     ],
   },
   {
-    // 🔑 生成 d.ts
-    plugins: [aliasPlugin, dts()],
-    input: "src/index.ts",
-    external: ["vue"],
+    plugins: [aliasPlugin(), dts()],
+    input: 'src/index.ts',
+    external: ['vue'],
     output: [
-      // { file: `./dist/full.d.mts` },
       {
-        format: "es",
-        dir: "./dist/es",
-        preserveModules: true,
-        entryFileNames: "[name].d.ts",
-      },
-      {
-        format: "es",
-        dir: "./dist/lib",
-        preserveModules: true,
-        entryFileNames: "[name].d.ts",
+        format: 'es',
+        file: `./dist/index.d.mts`,
       },
     ],
   },
-]);
+])
