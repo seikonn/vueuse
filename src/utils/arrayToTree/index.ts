@@ -1,27 +1,43 @@
-interface ArrayNode {
-  id: number
-  parentId: number | null
-  children?: ArrayNode[]
+export interface TreeNode<T> {
+  children?: TreeNode<T>[]
   [key: string]: any
 }
-export function arrayToTree(items: ArrayNode[]): ArrayNode[] {
-  const map = new Map<number, ArrayNode>()
-  const roots: ArrayNode[] = []
 
-  // 先把每个节点放到 map 中
+export interface ArrayToTreeOptions<T> {
+  idKey?: keyof T // 默认 'id'
+  parentKey?: keyof T // 默认 'parentId'
+  childrenKey?: string // 默认 'children'
+  rootValue?: any // 默认 null，决定哪些节点是根
+}
+
+export function arrayToTree<T extends Record<string, any>>(
+  items: T[],
+  options: ArrayToTreeOptions<T> = {},
+): TreeNode<T>[] {
+  const {
+    idKey = 'id',
+    parentKey = 'parentId',
+    childrenKey = 'children',
+    rootValue = null,
+  } = options
+
+  const map = new Map<any, TreeNode<T>>()
+  const roots: TreeNode<T>[] = []
+
+  // 先克隆节点并放到 map
   items.forEach((item) => {
-    map.set(item.id, { ...item, children: [] })
+    map.set(item[idKey], { ...item, [childrenKey]: [] })
   })
 
   // 建立父子关系
   items.forEach((item) => {
-    const node = map.get(item.id)!
-    if (item.parentId === null) {
+    const node = map.get(item[idKey])!
+    if (item[parentKey] === rootValue) {
       roots.push(node)
     } else {
-      const parent = map.get(item.parentId)
+      const parent = map.get(item[parentKey])
       if (parent) {
-        parent.children!.push(node)
+        (parent[childrenKey] as TreeNode<T>[]).push(node)
       }
     }
   })

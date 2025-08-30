@@ -1,0 +1,29 @@
+.vitepress-demo-plugin__container {
+  button {
+    padding: 3px 15px;
+    background-color: var(--vp-c-brand);
+    border: none;
+    outline: none;
+    color: white;
+    margin: 0.5rem 0;
+    border-bottom: 2px solid var(--vp-c-brand-2);
+    text-shadow: 1px 1px 1px var(--vp-c-brand-2);
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    vertical-align: middle;
+
+    &:hover {
+      background-color: var(--vp-c-brand-2);
+    }
+
+    &:active {
+      border-bottom: 0;
+      border-top: 2px solid var(--vp-c-brand-2);
+    }
+
+    & ~ button {
+      margin-left: 10px;
+    }
+  }
+}

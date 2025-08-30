@@ -35,7 +35,7 @@ export default defineConfig([
       {
         file: './dist/index.iife.js',
         format: 'iife',
-        name: 'easyuse',
+        name: 'EasyUse',
         globals: {
           vue: 'Vue',
         },
@@ -44,7 +44,7 @@ export default defineConfig([
       {
         file: './dist/index.iife.min.js',
         format: 'iife',
-        name: 'easyuse',
+        name: 'EasyUse',
         globals: {
           vue: 'Vue',
         },

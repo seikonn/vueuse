@@ -7,13 +7,14 @@ import { FunctionsSideBar } from './sidebar'
 export default defineConfig({
   title: 'EasyUse',
   description: 'A VitePress Site',
-  // vite: {
-  //   resolve: {
-  //     alias: {
-  //       '@': fileURLToPath(new URL('../src', import.meta.url)),
-  //     },
-  //   },
-  // },
+  vite: {
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('../src', import.meta.url)),
+        '@seikonn/easyuse': fileURLToPath(new URL('../src/index.ts', import.meta.url)),
+      },
+    },
+  },
   srcDir: './src',
   markdown: {
     config(md) {
@@ -23,6 +24,10 @@ export default defineConfig({
     },
   },
   themeConfig: {
+    outline: {
+      label: '本页目录', // 默认是 "On this page"
+      level: 'deep', // 你原来配置的层级仍然可以保留
+    },
     nav: [
       { text: '指南', link: '/guide', activeMatch: '^\/guide' },
       { text: '函数', link: '/functions', activeMatch: '^\/(functions|vue|utils)' },

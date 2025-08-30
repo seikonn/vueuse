@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: "EasyUse"
-  text: "A VitePress Site"
-  tagline: My great project tagline
+  text: "Collection of Utilities"
+  # tagline: My great project tagline
   actions:
     - theme: brand
       text: Get Start
@@ -15,10 +15,13 @@ hero:
       link: /functions
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Feature Rich
+    details: many functions for you to choose from
+    icon: 🎛
+  - title: Built for Vue 3
+    details: Designed for Vue 3 to take full advantage of its latest capabilities
+    icon: 🚀
+  - title: Type Strong
+    details: Written in TypeScript, with full TS docs
+    icon: 🦾
 ---

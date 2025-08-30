@@ -1,16 +1,17 @@
-<script lang="ts" setup>
-import { useCounter } from '.'
+<script setup lang="ts">
+import { useCounter } from '@seikonn/easyuse'
 
-const { count, inc, dec } = useCounter()
+const { count, inc, dec, set, reset } = useCounter()
 </script>
 
 <template>
   <div>
-    <div>{{ count }}</div>
+    <p>Count: {{ count }}</p>
     <button @click="inc()">Increment</button>
+    <button @click="dec()">Decrement</button>
+    <button @click="inc(5)">Increment(+5)</button>
+    <button @click="dec(5)">Decrement(-5)</button>
+    <button @click="set(100)">Set(100)</button>
+    <button @click="reset()">Reset</button>
   </div>
 </template>
-
-<style lang="scss" scoped>
-
-</style>

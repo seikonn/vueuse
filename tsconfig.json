@@ -7,7 +7,8 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@seikonn/easyuse": ["src/index.ts"]
     },
     "strict": true,
     "noUnusedLocals": false,
